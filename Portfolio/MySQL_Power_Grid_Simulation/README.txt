@@ -1,0 +1,3 @@
+This was the final project for my databases course that I took as a graduate student.  It's a database representation of a sample power grid, with the different entity sets being such things as the consumers, power stations, power companies, and cities involved.  I have included the written report for the project, as well as a set of sample queries.  The file grid.sql provides the database itself.  A live version of the project can be found at
+
+https://ix.cs.uoregon.edu/~dempseyi/final/applications.html

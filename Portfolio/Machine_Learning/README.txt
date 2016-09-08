@@ -1,0 +1,17 @@
+Contains code for implementations of the naive Bayes, perceptron, logistic regression, and ID3 decision tree learning algorithms.  Designed to read in data from .csv training and test data files, as well as several parameters (a beta prior for naive Bayes, a learning rate for the perceptron, and a learning rate and regularizer for logistic regression).  Both write their defined outputs to files entered as the last command line argument.  
+
+Language: Java
+Last modified: 2/20/2015
+
+Compilation instructions:Run 'javac *.java' in the directory with nb.java and lg.java.  Alternatively, you can use 'javac nb.java', 'javac lg.java', etc. to compile each source file individually.Running instructions:Run the naive Bayes code with java nb <training-data> <test-data> <beta> <model output file> <optional test-performance output file>Here, training-data and test-data are .csv files, beta is a desired floating-point number used for our prior, model output file is where the weights and base log odds are printed, and the optional second output file is where the test instance probabilities and overall accuracy are printed.  If this argument is omitted, testPerformance.txt is used as a default filename; the probabilities and accuracy are also printed to the command line.Run the logistic regression code with,java lg <training-data> <test-data> <eta> <sigma> <model output file> <optional test-performance output file>All fields are the same as above except that we have eta and sigma as our learning rate and prior, respectively (both floating-point numbers).  A general note on running logistic regression code:It will not converge if the learning rate is too big or sigma too small.  I achieved my best results, around 93% accuracy on both test and training data for the spambase dataset, on eta = .01 and sigma = 5.0. (Running naive bayes with a beta value of 10 provides about 88.4% accuracy.)
+
+Run the decision tree code with
+java ID3 <training-data> <test-data> <model output file>
+
+The output will contain both a visual representation of the resulting decision tree, with the performance accuracy printed to the last line.
+
+Run the perceptron code with
+java perceptron <training-data> <test-data> <learning rate> <model output file>
+A general note on running logistic regression code:It will not converge if the learning rate is too big or sigma too small.  I achieved my best results, around 90% accuracy on both test and training data for the spambase dataset, on learning rate = 2.
+
+I have also included the project put together by Caitlyn Hennessy and myself for the final project in the course.  This took the form of an entry into a competition hosted by Kaggle for predicting the kind of forest cover found in sections of Colorado using factors like the elevation and soil type.  My contribution included the code for the k-nearest neighbor  and naive Bayes methods.  For the former, the modifications included using a weighting scheme and also in using this scheme in combination with the e-ball extension for KNN.  For naive Bayes, I tried the multinomial-based extension of the algorithm, as well as using domain knowledge of the test data to inform the baseline probabilities (nbtest.java).  The nbcombined.java file is simply the basic form of the algorithm, with the only modification being that it treats binary characteristics differently from continuously valued ones.  The file blender .java was used to make a simple hybrid learning method after the output from previous methods had been obtained.

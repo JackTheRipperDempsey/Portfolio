@@ -1,0 +1,8 @@
+#! /bin/sh 
+#
+CUP=../lib/java-cup-11b-runtime.jar
+CLI=../lib/commons-cli-1.2.jar
+
+CLASSPATH=.:${CUP}:${CLI}
+#
+java -cp $CLASSPATH Cool $*

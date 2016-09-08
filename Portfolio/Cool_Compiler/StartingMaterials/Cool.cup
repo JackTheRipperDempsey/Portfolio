@@ -1,0 +1,135 @@
+//
+// Grammar definition (CUP) file of a 
+//   small procedural language
+//
+
+import java_cup.runtime.Symbol;
+import java_cup.runtime.ComplexSymbolFactory;
+
+parser code {:
+
+       int errorCount = 0;
+       static int MAX_ERRORS = 20; 
+              
+       // Debugging
+       public void dbg(String msg) {
+          // Uncomment to turn debugging back on 
+       	  // System.err.println(msg); 
+       }
+
+       // Driver should give us an ErrorReport object that we can 
+       // share with the scanner and other phases.  If it doesn't, we'll 
+       // print to StdErr. 
+       ErrorReport report = null; 
+       public void setErrorReport( ErrorReport _report) {
+       	      report = _report; 
+       }
+       
+       public void syntax_error(java_cup.runtime.Symbol cur_token) {
+           ComplexSymbolFactory.ComplexSymbol the_token =
+	      (ComplexSymbolFactory.ComplexSymbol) cur_token; 
+	   report_error("Syntax error in line " +
+			the_token.xleft.getLine() +
+			", near column " +
+			the_token.xleft.getColumn(),  null);
+	   ++ errorCount; 
+	   if (errorCount > MAX_ERRORS) {
+	       System.err.println("More than " + MAX_ERRORS + " errors. " + 
+				"Giving up"); 
+	       done_parsing(); 
+	       System.exit(1); 
+	   }
+       }
+
+       // Overrides default error reporting
+       public void report_error(String msg, Object ignored) {
+       	     if (report == null) {
+	        System.err.println(msg); 
+	     } else {
+	        report.err(msg); 
+             }
+       }
+
+       // Convenience form
+       public void report_error(String msg) {
+       	      report_error(msg, null); 
+       }
+
+:}
+
+// ====   Terminal symbols (interface to JFlex) ========
+
+// Punctuation 
+
+terminal LBRACE, RBRACE, SEMI, COLON, ASSIGN, COMMA ;
+terminal DOT, AT, LPAREN, RPAREN, NEG ; 
+terminal TIMES, DIV, PLUS, MINUS ;
+terminal LEQ, LT, EQ, NOT; 
+terminal RIGHTARROW; 
+
+// Keywords
+terminal CLASS, INHERITS, IF, THEN, ELSE, FI, WHILE, DO, OD, LET, IN ;
+terminal CASE, OF, ESAC; 
+terminal NEW, ISVOID;
+terminal LOOP, POOL;
+
+
+// Literals
+
+terminal TRUE, FALSE, INTLIT, STRINGLIT;
+
+// Identifiers
+
+terminal ID;        // Identifier (variable name)
+terminal TYPEID;    // Type (class) name
+
+// ====   Non-terminal symbols (defined by CUP grammar below) ====
+//        (write the grammar, then add symbols to this list) 
+
+nonterminal program, classes, clazz, optParent, features; 
+   /* There are more */ 
+nonterminal empty; 
+
+
+// ====   Grammar ======
+
+// Cool manual:     program ::= class;+
+// A program is a sequence of one or more classes, 
+//   separated by semicolons
+
+program ::= classes ; 
+
+classes ::= classes clazz SEMI
+        |   clazz SEMI
+	|   error SEMI 
+	;
+
+// Cool manual:   class ::= class TYPE [inherits TYPE] { feature;* }
+// 
+clazz	  ::=	CLASS TYPEID optParent LBRACE features RBRACE ; 
+optParent ::=   INHERITS TYPEID 
+	  |	empty ; 
+features  ::=   empty ; /* Not really ... you fill in from here. */
+
+
+// Cool manual: feature ::= ID( formal,* ): TYPE { expr }
+//                      |   ID: TYPE [ :=  expr ]
+//
+
+// Cool manual: formal ::= ID : TYPE 
+
+
+// Cool manual gives precedence (left associative except as noted)
+// 1: . @ 
+// 2: ~ 
+// 3: isvoid 
+// 4:  * / 
+// 5: + -
+// 6: <= < = (non-associative)
+// 7: not 
+// 8: := (right-associative)
+// then control operators if, while, let, etc., 
+// with "let" gobbling as much to the right as possible
+//
+
+empty ::= ;  

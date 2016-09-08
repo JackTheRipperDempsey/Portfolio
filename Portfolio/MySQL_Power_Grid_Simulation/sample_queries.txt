@@ -1,0 +1,19 @@
+SELECT state,AVG(cost_per_kWhr) AS avg_cost FROM cities JOIN (households JOIN grid_household_connections ON (households.homeowner_ssn = grid_household_connections.home_ssn)) ON (cities.name = households.city) 
+WHERE (cities.state = 'MA')
+GROUP BY state;
+
+SELECT position,AVG(salary)
+FROM employees
+GROUP BY position;
+
+SELECT ename,position
+FROM employees,companies
+WHERE (comp_id = companyid) AND (comp_name = 'Mojave Solar');
+
+SELECT city,years_duration,yearly_cost,comp_name, HQ_loc as HQ_of_comp
+FROM companies,city_power_co_contracts
+WHERE (comp_id = companyid) AND (city = 'Portland');
+
+SELECT name,area,comp_name
+FROM power_stations,companies, grids
+WHERE (comp_id = company_id) AND (id_no = power_id_no) AND (fuel_type = 'hydro');
