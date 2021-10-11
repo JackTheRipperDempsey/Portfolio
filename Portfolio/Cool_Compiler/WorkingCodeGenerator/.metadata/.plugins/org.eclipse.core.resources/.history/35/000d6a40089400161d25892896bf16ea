@@ -1,0 +1,49 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
+
+public class CodeGenerator {
+	public void generateCode(ASTNode rootNode){
+		StringBuilder cText = new StringBuilder("");
+		
+		//TODO: Built-in functions
+		cText.append("#include <stdlib.h>\n\n");
+		cText.append("public void Object_abort(){\n");
+		cText.append("exit(1);\n}\n\n");
+		
+		cText.append("public void* IO_out_string(void* this, char* string){\n");
+		cText.append("printf(\"%s\\n\",string);\n");
+		cText.append("return this;\n");
+		cText.append("}\n\n");
+		
+		cText.append("public void* IO_out_int(void* this, int integer){\n");
+		cText.append("printf(\"%d\\n\",integer);\n");
+		cText.append("return this;\n");
+		cText.append("}\n\n");
+		
+		cText.append("public char* IO_in_string(){\n");
+		cText.append("char* string = (char*) malloc( 1000 );\n");
+		cText.append("scanf(\"%s\",string);");
+		cText.append("return string;\n");
+		cText.append("}\n\n");
+		
+		cText.append("public int IO_in_int(){\n");
+		cText.append("int integer;\n");
+		cText.append("scanf(\"%d\",&integer);");
+		cText.append("return integer;\n");
+		cText.append("}\n\n");
+		
+		rootNode.generateC(cText);
+		try {
+			FileWriter fileWriter = new FileWriter("c_output.txt");
+			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+			bufferedWriter.write(cText.toString());
+			bufferedWriter.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+}

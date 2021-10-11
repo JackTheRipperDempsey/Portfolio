@@ -1,0 +1,20 @@
+# All compiled class files
+*.class
+
+# Generated scanner and parser
+Scanner.java*
+parser.java*
+*/Scanner.java*
+*/parser.java*
+
+
+# .DS_Store is macOS specific and can be excluded
+*.DS_Store
+
+# Generated output files are relatively large and changes can bloat commits
+outputs/
+outputs/*
+
+.vscode
+.vscode/
+.vscode/*

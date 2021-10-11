@@ -1,0 +1,21 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
+
+public class CodeGenerator {
+	public void generateCode(ASTNode rootNode){
+		StringBuilder llvmText = new StringBuilder("");
+		rootNode.generateLLVM(llvmText);
+		try {
+			FileWriter fileWriter = new FileWriter("llvm_output.txt");
+			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+			bufferedWriter.write(llvmText.toString());
+			bufferedWriter.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+}

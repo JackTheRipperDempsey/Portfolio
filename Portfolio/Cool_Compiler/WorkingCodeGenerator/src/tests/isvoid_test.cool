@@ -1,0 +1,72 @@
+class Main inherits IO {
+
+    boolean : Bool;
+    integer : Int;
+    string : String;
+    object : Object;
+
+    main() : Main {
+        {
+            if boolean
+            then
+                out_string("default boolean is true")
+            else
+                out_string("\ndefault boolean is false")
+            fi;
+
+            out_string("\ndefault integer\n");
+            out_int(integer);
+
+            out_string("\ndefault string\n");
+            out_string(string);
+
+            if (isvoid object) 
+            then 
+                out_string("\ndefault object is void")
+            else 
+                out_string("\ndefault object is not void")
+            fi; 
+
+            object <- (new Object);
+
+            if (isvoid object) 
+            then 
+                out_string("\nnewed object is void")
+            else 
+                out_string("\nnewed object is not void")
+            fi; 
+
+            (let let_object : Object in 
+                {
+                    if (isvoid let_object) 
+                    then 
+                        out_string("\nuninitialized let object is void")
+                    else 
+                        out_string("\nuninitialized let object is not void")
+                    fi; 
+
+                    let_object := new Object;
+                    if (isvoid let_object) 
+                    then 
+                        out_string("\nnewed let object is void")
+                    else 
+                        out_string("\nnewed let object is not void")
+                    fi; 
+                }
+            );
+
+            (let init_let_object : Object <- new Object in 
+                {
+                    if (isvoid init_let_object) 
+                    then 
+                        out_string("\ninitialized let object is void\n")
+                    else 
+                        out_string("\ninitialized let object is not void\n")
+                    fi; 
+                }
+            );
+
+	    }
+    };
+
+};

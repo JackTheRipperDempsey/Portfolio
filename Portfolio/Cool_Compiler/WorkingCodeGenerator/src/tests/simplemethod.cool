@@ -1,0 +1,48 @@
+class Adder {
+	
+    falseBool : Bool <- false;
+
+	
+};
+
+class Intermediate {
+
+    falseBool : Bool <- false;
+
+
+	adder : Adder;
+
+    returnsFalse() : Bool {
+        {falseBool;}
+    };
+
+	intermediateAdder (intermediate : Intermediate, flag : Bool) : Int {
+    {
+        0;
+    }
+    };
+
+};
+
+
+
+class Main inherits IO {
+    number : Int := 0;
+
+    adder : Intermediate;
+    flag : Bool := true;
+
+
+    main() : Main {
+    {
+	
+	number := adder.intermediateAdder(
+	adder, flag
+	);
+out_int(number);
+        out_string("\nincrementing complete\n");
+        
+	}
+    };
+
+};
