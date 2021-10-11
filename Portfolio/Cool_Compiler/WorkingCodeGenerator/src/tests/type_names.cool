@@ -1,0 +1,50 @@
+class Adder {
+	
+
+
+	
+};
+
+class Intermediate {
+
+
+	adder : Adder := (new Adder);
+
+    adderType() : String {
+        {adder.type_name();}
+    };
+
+
+};
+
+class Superclass {
+
+};
+
+class Subclass inherits Superclass {
+
+};
+
+class Main inherits IO {
+
+    adder : Intermediate := (new Intermediate);
+    type : String;
+    super: Superclass := (new Superclass);
+
+    main() : Main {
+        {
+	
+            type := adder.type_name();
+            out_string("type name #1: ".concat(type));
+            type := adder.adderType();
+            out_string("\ntype name # 2: ".concat(type));
+            type := super.type_name();
+            out_string("\ntype name # 3: ".concat(type));
+            super := (new Subclass);
+            type := super.type_name();
+            out_string("\ntype name # 4: ".concat(type));
+            out_string("\n");
+	    }
+    };
+
+};

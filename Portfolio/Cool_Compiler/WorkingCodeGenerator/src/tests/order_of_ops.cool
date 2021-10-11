@@ -1,0 +1,18 @@
+class Main inherits IO {
+
+    noParens : Int := 0;
+    parens : Int := 0;
+
+    main() : Main {
+        {
+            parens := (1+2) * 3;
+            noParens := 1+2*3;
+            out_string("\nresult of (1+2) * 3:");
+            out_int(parens);
+            out_string("\nresult of 1+2*3:");
+            out_int(noParens);
+            out_string("\n");
+        }
+    };
+
+};
