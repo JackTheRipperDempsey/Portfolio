@@ -1,7 +1,0 @@
-
-public class CodeGenerator {
-	public void generateCode(ASTNode rootNode){
-		StringBuilder llvmText = new StringBuilder("");
-		rootNode.generateLLVM(llvmText);
-	}
-}
